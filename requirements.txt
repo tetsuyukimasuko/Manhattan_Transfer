@@ -1,0 +1,6 @@
+Flask==0.12.2
+future==0.16.0
+google-cloud==0.33.1
+google-cloud-speech==0.30.0
+google-auth==1.5.0
+google-auth-oauthlib==0.2.0
