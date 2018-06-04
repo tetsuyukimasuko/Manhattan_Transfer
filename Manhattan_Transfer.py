@@ -22,7 +22,7 @@ app = Flask(__name__)
 @app.route('/webhook', methods=['POST'])
 def webhook():
     audio_file=request.files['wav']
-    hints=request.post['hints']
+    hints=request.form['hints']
 
     credentials = service_account.Credentials.from_service_account_file('My First Project-f92e7a809607.json')
     if credentials.requires_scopes:
