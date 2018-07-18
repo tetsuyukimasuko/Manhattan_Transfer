@@ -24,7 +24,7 @@ def webhook():
     audio_file=request.files['wav']
     hints=request.form.getlist('hints')
 
-    credentials = service_account.Credentials.from_service_account_file('My First Project-f92e7a809607.json')
+    credentials = service_account.Credentials.from_service_account_file('SpeechAPI-52a687e4664e.json')
     if credentials.requires_scopes:
         credentials = credentials.with_scopes(['https://www.googleapis.com/auth/cloud-platform'])
 
