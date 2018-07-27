@@ -68,7 +68,7 @@ def webhook():
     
     return r
 
-
+#サーバーを5000番で起動。
 if __name__ == '__main__':
     port = int(os.getenv('PORT', 5000))
     print("Starting app on port %d" % port)
