@@ -19,12 +19,14 @@ from google.oauth2 import service_account
 # Flask app should start in global layout
 app = Flask(__name__)
 
+#url定義。root url+/webhook でアクセス
 @app.route('/webhook', methods=['POST'])
 def webhook():
     audio_file=request.files['wav']
     hints=request.form.getlist('hints')
-
-    credentials = service_account.Credentials.from_service_account_file('SpeechAPI-52a687e4664e.json')
+    
+    #サービスアカウントの情報を読み込む。ここで、ダウンロードしたjsonのパスを指定。
+    credentials = service_account.Credentials.from_service_account_file('xxxxxx.json')
     if credentials.requires_scopes:
         credentials = credentials.with_scopes(['https://www.googleapis.com/auth/cloud-platform'])
 
@@ -51,13 +53,16 @@ def webhook():
     response = client.recognize(config, audio)
 
     text=''
-
+    
+    #帰ってきたレスポンスのうち、リスト"results"の中の"alternatives"の0番目の"transcript"に、
+    #認識結果が入っているので、それだけを取り出す。
     for result in response.results:
         print('Transcript: {}'.format(result.alternatives[0].transcript))
         text+=result.alternatives[0].transcript
 
 
-    #返却
+    #レスポンスを返却。辞書を渡すとレスポンスを作成してくれる。
+    #この例では{"text" : "認識結果"}というレスポンスが返ってくる。
     r = make_response(jsonify({'text':text}))
     r.headers['Content-Type'] = 'application/json'
     
